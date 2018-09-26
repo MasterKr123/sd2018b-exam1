@@ -1,0 +1,89 @@
+swagger: '2.0'
+info:
+  title: User API
+  version: "0.3.0"
+paths:
+  /users/{username}:
+    get:
+      x-swagger-router-controller: gm_analytics
+      operationId: handlers.get_user_info
+      summary: Returns user information.
+      parameters:
+        - name: username
+          in: path
+          required: true
+          type: string
+          format: path
+      responses:
+        200:
+          description: Successful response.
+          schema:
+            type: object
+            properties:
+              user_info:
+                type: string
+                description: User information
+  /users/{username}/commits:
+    get:
+      x-swagger-router-controller: gm_analytics
+      operationId: handlers.get_commits_info
+      summary: Returns user information.
+      parameters:
+        - name: username
+          in: path
+          required: true
+          type: string
+          format: path
+        - name: time_range
+          in: query
+          type: string
+      responses:
+        200:
+          description: Successful response.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Item'
+  /organizations/{organization}/repositories/{repository}/users/{username}/commits:
+    get:
+      x-swagger-router-controller: gm_analytics
+      operationId: handlers.get_user_commits
+      summary: Returns user commits_count.
+      parameters:
+        - name: organization
+          in: path
+          required: true
+          type: string
+          format: path
+        - name: repository
+          in: path
+          required: true
+          type: string
+          format: path
+        - name: username
+          in: path
+          required: true
+          type: string
+          format: path
+      responses:
+        200:
+          description: Successful response.
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Item2'
+definitions:
+  Item:
+    type: object
+    properties:
+      commits_count:
+        type: integer
+      yyyymmdd_date:
+        type: string
+  Item2:
+    type: object
+    properties:
+      commit_number:
+        type: integer
+      description:
+        type: string
