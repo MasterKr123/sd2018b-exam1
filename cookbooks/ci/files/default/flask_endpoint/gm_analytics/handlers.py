@@ -1,12 +1,27 @@
+import os
 import logging
-def get_user_info(username=None):
-    return {"user_info": username}
-def get_commits_info(username=None, time_range=None):
-    return [{'commits_count': 10, 'yyyymmdd_date': '20180101'},
-            {'commits_count': 10, 'yyyymmdd_date': '20180102'}]
-def get_user_commits(organization=None, repository=None, username=None):
-    logging.info('executing get_user_commits method')
-    logging.debug('organization=%s', organization)
-    logging.debug('repository=%s', repository)
-    logging.debug('username=%s', username)
-    return [{'commit_number': 1, 'description': 'Init commit'}]
+import requests
+import json
+import urllib
+from fabric import Connection
+from flask import request
+
+def repository_changed():
+    logging.debug('Event Received')
+    post_json_data = request.get_data()
+    string = str(post_json_data, 'utf-8')
+    jsonFile = json.loads(string)
+    pull_id = jsonFile["pull_request"]["head"]["sha"]
+    url = 'https://raw.githubusercontent.com/MasterKr123/sd2018b-exam1/' + pull_id + '/cookbooks/mirror/files/default/packages.json'
+    response = urllib.urlopen(url)
+    packages_json = json.loads(response.read())
+    install_packages = ""
+    for i in packages_json:
+        commands = i["commands"].split(";")
+        for l in commands:
+                install_packages = install_packages + " " + l
+    text = Connection('192.168.131.152').run('sudo yum install -y install_packages')
+    logging.debug(text)
+    result = {'command_return': 'Work!'}
+    return result
+

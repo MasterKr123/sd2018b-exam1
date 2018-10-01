@@ -1,1 +1,0 @@
-/home/distribuidos/Documents/SistemasDistribuidos/workshops/sd2018b-workshop2/A00315284/02_array_response/gm_analytics/handlers.py
