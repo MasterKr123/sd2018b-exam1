@@ -158,6 +158,64 @@ mirrorClient.vm.network "public_network", bridge: "eno1", type: "dhcp"
 ```  
 
 ### 4. :heavy_check_mark: 
+```
+➜  cookbooks git:(jcastano/sd2018b-exam1) tree
+.
+├── ci
+│   ├── files
+│   │   └── default
+│   │       └── flask_endpoint
+│   │           ├── gm_analytics
+│   │           │   ├── handlers.py
+│   │           │   └── swagger
+│   │           │       └── indexer.yaml
+│   │           ├── requirements.txt
+│   │           └── scripts
+│   │               └── deploy.sh
+│   └── recipes
+│       ├── ci_setup.rb
+│       ├── default.rb
+│       ├── endpoint_install.rb
+│       └── python_install.rb
+├── client
+│   ├── files
+│   │   └── default
+│   │       ├── hosts
+│   │       └── icesi.repo
+│   └── recipes
+│       ├── default.rb
+│       ├── hosts_config.rb
+│       ├── repo_config.rb
+│       ├── repo_delete.rb
+│       └── repo_update.rb
+├── dhcpd
+│   ├── files
+│   │   └── default
+│   │       └── dhcpd.conf
+│   └── recipes
+│       ├── default.rb
+│       ├── dhcpd_config.rb
+│       ├── dhcpd_install.rb
+│       └── dhcpd_start.rb
+├── httpd
+│   ├── files
+│   │   └── default
+│   └── recipes
+│       ├── default.rb
+│       ├── httpd_config.rb
+│       └── httpd_install.rb
+└── mirror
+    ├── files
+    │   └── default
+    │       ├── packages.json
+    │       └── setup.py
+    └── recipes
+        ├── default.rb
+        ├── mirror_config.rb
+        ├── packages_install.rb
+        ├── packages_setup.rb
+        └── packages_update.rb
+```
 
 ### 5. :heavy_check_mark: 
 The project's URL is: 
