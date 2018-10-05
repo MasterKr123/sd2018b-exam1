@@ -68,12 +68,109 @@ Tenga en cuenta que el repositorio debe contener todos los archivos necesarios p
 
 7. Documente algunos de los problemas encontrados y las acciones efectuadas para su solución al aprovisionar la infraestructura y aplicaciones. (10%)
 
+## Desarrollo  
+
+### 1. :heavy_check_mark: 
+
+
+
+
+### 2.  Self-provision of infrastructure  
+
+For the development of this test, a machine was used centos1706_v0.2.0.
+
+#### vagrant up results in box with no ssh permissions while deploying
+
+Version 1.8.5 of vagrant has an issue related with ssh keys. Workaround is to add a configuration parameter in the Vagrantfile. Also take into account that when you use a box without chef you have to provision it manually using shell inline provisioner.  
+
+solution:  
+```
+$ vagrant init centos1706_v0.2.0
+$ vagrant up 
+$ vim Vagrantfile
+config.ssh.insert_key = false
+```
+
+#### vagrant package results in box with no guest additions
+
+solution:
+```
+$ vagrant up
+$ vagrant ssh -c 'sudo rm -f /etc/udev/rules.d/60-vboxadd.rules'
+$ vagrant package --output CentosOS-7....
+```
+
+or let vagrant to re-install guest additions for you (not recommended)
+
+```
+$ vagrant plugin install vagrant-vbguest
+```
+
+#### vagrant ssh results in permission denied
+
+solution:
+```
+config.vm.provision "shell", inline: <<-SHELL
+    sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config
+SHELL
+```
+
+To access the machines after lifting them with the command:
+```
+vagrant up
+```
+You can access the machines with the command:
+```
+vagrant ssh machine
+```  
+Where "machine" is the name of the machine established in the vagrantfile.  
+
+**Note:** to destroy the machines the command is used ```vagrant destroy```
+
+
+### 3.  Vagrantfile to perform the provisioning  
+
+In the created VagrantFile file, a Multi-Machine configuration is made with the required machines that are:  
+- DHCP_Server:  
+Where the dhcp is provisioned with chef and configured with files for defects in the cookbooks (dhcp).
+The network configuration is:
+```
+dhcpServer.vm.network "public_network", bridge: "eno1", ip:"192.168.131.150", netmask: "255.255.255.0"
+```  
+
+- CI_Server:  
+Where the ci is provisioned with chef and configured with files for defects in the cookbooks (wget, unzip,ngrok, flask_endpoint and python36). 
+The network configuration is:
+```
+ciServer.vm.network "public_network", bridge: "eno1", ip:"192.168.131.151", netmask: "255.255.255.0"
+```  
+
+- Mirror_Server:  
+Where the mirror is provisioned with chef and configured with files for defects in the cookbooks (wget, unzip, ngrok, flask_endpoint and python36).  
+The network configuration is:
+```
+mirrorServer.vm.network "public_network", bridge: "eno1", ip:"192.168.131.152", netmask: "255.255.255.0"
+```  
+
+- YUM_Client:  
+Where the client is provisioned with chef and configured with files for defects in the cookbooks (icesi.repo and host).
+The network configuration is:
+```
+mirrorClient.vm.network "public_network", bridge: "eno1", type: "dhcp"
+```  
+
+### 4. :heavy_check_mark: 
+
+
+
+
 ### Referencias
 * https://docs.chef.io/  
 * https://github.com/ICESI/ds-vagrant/tree/master/centos7/05_chef_load_balancer_example
 * https://developer.github.com/v3/guides/building-a-ci-server/
 * http://www.fabfile.org/
 * http://flask.pocoo.org/
-* https://connexion.readthedocs.io/en/latest/
+* https://connexion.readthedocs.io/en/latest/  
+* https://github.com/ICESI/ds-vagrant/tree/master/centos7
 
 [1]: images/01_diagrama_despliegue.png
