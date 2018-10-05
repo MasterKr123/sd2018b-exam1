@@ -73,8 +73,6 @@ Tenga en cuenta que el repositorio debe contener todos los archivos necesarios p
 ### 1. :heavy_check_mark: 
 
 
-
-
 ### 2.  Self-provision of infrastructure  
 
 For the development of this test, a machine was used centos1706_v0.2.0.
@@ -161,7 +159,22 @@ mirrorClient.vm.network "public_network", bridge: "eno1", type: "dhcp"
 
 ### 4. :heavy_check_mark: 
 
+### 5. :heavy_check_mark: 
+The project's URL is: 
+https://github.com/MasterKr123/sd2018b-exam1
 
+### 6. :heavy_check_mark: 
+
+### 7. Problems encountered and actions taken
+
+**Connection issues:**
+As in many of the projects carried out, connectivity has been a problem. To deal with this, an inspection was performed according to the OSI model starting from the lowest level to the highest level.
+
+**Start problems:** 
+At the beginning of a project like this there is an insertion of where to start. What he realized was to order and prioritize the machines according to the dependence with the others.
+
+**Complex automate functions:** 
+There were complicated functions to automate, such as the automation of package installation. This was done through investigation and error test. However, some functions have a more complex level of automation such as obtaining the Ngrok link and configuring the webhook with that new link and the endpoint. As it could not be automated, this small function is done manually.
 
 
 ### Referencias
