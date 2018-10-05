@@ -12,16 +12,20 @@ def repository_changed():
     string = str(post_json_data, 'utf-8')
     jsonFile = json.loads(string)
     pull_id = jsonFile["pull_request"]["head"]["sha"]
-    url = 'https://raw.githubusercontent.com/MasterKr123/sd2018b-exam1/' + pull_id + '/cookbooks/mirror/files/default/packages.json'
-    response = urllib.urlopen(url)
-    packages_json = json.loads(response.read())
+
+    url = 'https://raw.githubusercontent.com/MasterKr123/sd2018b-exam1/' + pull_id + '/packages.json'
+    response = requests.get(url)
+    packages_json = json.loads(response.content)
+
     install_packages = ""
     for i in packages_json:
         commands = i["commands"].split(";")
         for l in commands:
                 install_packages = install_packages + " " + l
-    text = Connection('192.168.131.152').run('sudo yum install -y install_packages')
+
+    text = Connection('vagrant@192.168.131.15').run('sudo yum install --downloadonly --downloaddir=/var/repo' + install_packages)
     logging.debug(text)
+
     result = {'command_return': 'Work!'}
     return result
 

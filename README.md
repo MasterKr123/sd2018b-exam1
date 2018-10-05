@@ -223,6 +223,22 @@ https://github.com/MasterKr123/sd2018b-exam1
 
 ### 6. :heavy_check_mark: 
 
+####process  
+* First we have to deploy the machines.
+![][2]
+**Figura 2**. Vagrant up successful.  
+  
+* Second we have to configure the ssh key between the CI Server and the Mirror Server.
+- Generate the key in the CI Server
+![][3]
+**Figura 3**. Key generated.
+- Share the key with the mirror server
+![][4]
+**Figura 4**. Key shared.
+ 
+
+
+
 ### 7. Problems encountered and actions taken
 
 **Connection issues:**
@@ -245,3 +261,6 @@ There were complicated functions to automate, such as the automation of package 
 * https://github.com/ICESI/ds-vagrant/tree/master/centos7
 
 [1]: images/01_diagrama_despliegue.png
+[2]: images/02_vagrantup_succesful.png
+[3]: image/03_Ci_keyGen.png
+
