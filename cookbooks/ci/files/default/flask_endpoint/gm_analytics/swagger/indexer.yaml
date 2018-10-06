@@ -16,4 +16,4 @@ paths:
             properties:
               command_return:
                 type: string
-		description: Repository changed.
+                description: Repository changed.
