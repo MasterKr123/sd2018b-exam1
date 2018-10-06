@@ -223,44 +223,44 @@ https://github.com/MasterKr123/sd2018b-exam1
 
 ### 6. :heavy_check_mark:
 
-####process  
-* We have to deploy the machines.
-![][2]
+#### process  
+* We have to deploy the machines.  
+![][2]  
 **Figura 2**. Vagrant up successful.  
 
-* We can see that there is no package.
-![][3]
-**Figura 3**. Any packages.
+* We can see that there is no package.  
+![][3]  
+**Figura 3**. Any packages.  
 
-* So we have to configure the ssh key between the CI Server and the Mirror Server.
-![][4]
-**Figura 4**. Key generated and shared.
+* So we have to configure the ssh key between the CI Server and the Mirror Server.  
+![][4]  
+**Figura 4**. Key generated and shared.  
 
-* We have to activate the Ngrok service.
-![][5]
-**Figura 5**. Ngrok up.
+* We have to activate the Ngrok service.  
+![][5]  
+**Figura 5**. Ngrok up.  
+* When doing a pullrequest you can see an OK request in the CI server.  
 
-* When doing a pullrequest you can see an OK request in the CI server.
-![][6]
-**Figura 6**. Request OK.
+![][6]  
+**Figura 6**. Request OK.  
 
-* We can see that the packages are installed with the pullrequest.
-![][7]
-**Figura 7**. Endpoint successful.
+* We can see that the packages are installed with the pullrequest.  
+![][7]  
+**Figura 7**. Endpoint successful.  
 
-* Finally, we can see that the packages were installed.
-![][8]
-**Figura 8**. Packages installer.
+* Finally, we can see that the packages were installed.  
+![][8]  
+**Figura 8**. Packages installer.  
 
 ### 7. Problems encountered and actions taken
 
-**Connection issues:**
-As in many of the projects carried out, connectivity has been a problem. To deal with this, an inspection was performed according to the OSI model starting from the lowest level to the highest level.
+**Connection issues:**  
+As in many of the projects carried out, connectivity has been a problem. To deal with this, an inspection was performed according to the OSI model starting from the lowest level to the highest level.  
 
-**Start problems:**
-At the beginning of a project like this there is an insertion of where to start. What he realized was to order and prioritize the machines according to the dependence with the others.
+**Start problems:**  
+At the beginning of a project like this there is an insertion of where to start. What he realized was to order and prioritize the machines according to the dependence with the others.  
 
-**Complex automate functions:**
+**Complex automate functions:**  
 There were complicated functions to automate, such as the automation of package installation. This was done through investigation and error test. However, some functions have a more complex level of automation such as obtaining the Ngrok link and configuring the webhook with that new link and the endpoint. As it could not be automated, this small function is done manually.
 
 
