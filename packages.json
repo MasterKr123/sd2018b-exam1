@@ -11,7 +11,7 @@
         },
         {
             "index": 3,
-            "package": "fortune",
-            "commands": "fortune"
+            "package": "tree",
+            "commands": "tree"
         }
 ]

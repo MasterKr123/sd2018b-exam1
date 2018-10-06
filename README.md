@@ -30,7 +30,7 @@ Despliegue de una plataforma con los siguientes requerimientos:
   * CentOS7 CI Server
   * CentOS7 YUM Mirror Server
   * CentOS7 YUM Client
-  
+
 * El **CentOS7 DHCP Server** entrega una dirección IP a las demas máquinas virtuales a través de una interfaz pública.
 
 * Hay un listado de los paquetes a instalar en el **CentOS7 YUM Mirror Server** en un archivo llamado **packages.json** en la raíz del repositorio.  Este listado es usado para inyectar la lista de paquetes en el recurso de chef correspondiente encargado de hacer la descarga de los mismos. Al momento de ejecutar el comando vagrant up, el aprovisionamiento usa el contenido del archivo **packages.json** para hacer la descarga de los paquetes a almacenar en el **CentOS7 YUM Mirror Server**.
@@ -53,7 +53,7 @@ Despliegue de una plataforma con los siguientes requerimientos:
   * Formato markdown (5%)
   * Nombre y código del estudiante (5%)
   * Ortografía y redacción (5%)
-  
+
 2. Consigne en el README.md los comandos de Linux necesarios para el aprovisionamiento de los servicios solicitados. En este punto no debe incluir recetas solo se requiere que usted identifique los comandos o acciones que debe automatizar con la respectiva explicación de los mismos (15%)
 
 3. Escriba el archivo Vagrantfile para realizar el aprovisionamiento, teniendo en cuenta definir:
@@ -61,7 +61,7 @@ maquinas a aprovisionar, interfaces solo anfitrión, interfaces tipo puente, dec
 
 4. Escriba los cookbooks necesarios para realizar la instalación de los servicios solicitados (20%)
 
-5. El informe debe publicarse en un repositorio de github el cual debe ser un fork de https://github.com/ICESI-Training/sd2018b-exam1 y para la entrega deberá hacer un Pull Request (PR) al upstream, para el examen NO cree un directorio con su código. El código fuente y la url de github deben incluirse en el informe. (15%). 
+5. El informe debe publicarse en un repositorio de github el cual debe ser un fork de https://github.com/ICESI-Training/sd2018b-exam1 y para la entrega deberá hacer un Pull Request (PR) al upstream, para el examen NO cree un directorio con su código. El código fuente y la url de github deben incluirse en el informe. (15%).
 Tenga en cuenta que el repositorio debe contener todos los archivos necesarios para el aprovisionamiento.
 
 6. Incluya evidencias que muestran el funcionamiento de lo solicitado. (15%)
@@ -70,7 +70,7 @@ Tenga en cuenta que el repositorio debe contener todos los archivos necesarios p
 
 ## Desarrollo  
 
-### 1. :heavy_check_mark: 
+### 1. :heavy_check_mark:
 
 
 ### 2.  Self-provision of infrastructure  
@@ -84,7 +84,7 @@ Version 1.8.5 of vagrant has an issue related with ssh keys. Workaround is to ad
 solution:  
 ```
 $ vagrant init centos1706_v0.2.0
-$ vagrant up 
+$ vagrant up
 $ vim Vagrantfile
 config.ssh.insert_key = false
 ```
@@ -137,7 +137,7 @@ dhcpServer.vm.network "public_network", bridge: "eno1", ip:"192.168.131.150", ne
 ```  
 
 - CI_Server:  
-Where the ci is provisioned with chef and configured with files for defects in the cookbooks (wget, unzip,ngrok, flask_endpoint and python36). 
+Where the ci is provisioned with chef and configured with files for defects in the cookbooks (wget, unzip,ngrok, flask_endpoint and python36).
 The network configuration is:
 ```
 ciServer.vm.network "public_network", bridge: "eno1", ip:"192.168.131.151", netmask: "255.255.255.0"
@@ -157,7 +157,7 @@ The network configuration is:
 mirrorClient.vm.network "public_network", bridge: "eno1", type: "dhcp"
 ```  
 
-### 4. :heavy_check_mark: 
+### 4. :heavy_check_mark:
 ```
 ➜  cookbooks git:(jcastano/sd2018b-exam1) tree
 .
@@ -217,37 +217,50 @@ mirrorClient.vm.network "public_network", bridge: "eno1", type: "dhcp"
         └── packages_update.rb
 ```
 
-### 5. :heavy_check_mark: 
-The project's URL is: 
+### 5. :heavy_check_mark:
+The project's URL is:
 https://github.com/MasterKr123/sd2018b-exam1
 
-### 6. :heavy_check_mark: 
+### 6. :heavy_check_mark:
 
 ####process  
-* First we have to deploy the machines.
+* We have to deploy the machines.
 ![][2]
 **Figura 2**. Vagrant up successful.  
-  
-* Second we have to configure the ssh key between the CI Server and the Mirror Server.
-- Generate the key in the CI Server
+
+* We can see that there is no package.
 ![][3]
-**Figura 3**. Key generated.
-- Share the key with the mirror server
+**Figura 3**. Any packages.
+
+* So we have to configure the ssh key between the CI Server and the Mirror Server.
 ![][4]
-**Figura 4**. Key shared.
- 
+**Figura 4**. Key generated and shared.
 
+* We have to activate the Ngrok service.
+![][5]
+**Figura 5**. Ngrok up.
 
+* When doing a pullrequest you can see an OK request in the CI server.
+![][6]
+**Figura 6**. Request OK.
+
+* We can see that the packages are installed with the pullrequest.
+![][7]
+**Figura 7**. Endpoint successful.
+
+* Finally, we can see that the packages were installed.
+![][8]
+**Figura 8**. Packages installer.
 
 ### 7. Problems encountered and actions taken
 
 **Connection issues:**
 As in many of the projects carried out, connectivity has been a problem. To deal with this, an inspection was performed according to the OSI model starting from the lowest level to the highest level.
 
-**Start problems:** 
+**Start problems:**
 At the beginning of a project like this there is an insertion of where to start. What he realized was to order and prioritize the machines according to the dependence with the others.
 
-**Complex automate functions:** 
+**Complex automate functions:**
 There were complicated functions to automate, such as the automation of package installation. This was done through investigation and error test. However, some functions have a more complex level of automation such as obtaining the Ngrok link and configuring the webhook with that new link and the endpoint. As it could not be automated, this small function is done manually.
 
 
@@ -259,8 +272,14 @@ There were complicated functions to automate, such as the automation of package 
 * http://flask.pocoo.org/
 * https://connexion.readthedocs.io/en/latest/  
 * https://github.com/ICESI/ds-vagrant/tree/master/centos7
+* https://github.com/juanswan13/sd2018b-exam1/
+
 
 [1]: images/01_diagrama_despliegue.png
 [2]: images/02_vagrantup_succesful.png
-[3]: image/03_Ci_keyGen.png
-
+[3]: images/08_non_packages.png
+[4]: images/03_Ci_keyGen.png
+[5]: images/04_ngrok.png
+[6]: images/05_httpOk.png
+[7]: images/06_connectPackages.png
+[8]: images/07_packagesInstaller.png

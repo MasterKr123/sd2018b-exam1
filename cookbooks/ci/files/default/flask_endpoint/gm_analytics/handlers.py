@@ -20,8 +20,7 @@ def repository_changed():
         commands = i["commands"].split(";")
         for l in commands:
                 install_packages = install_packages + " " + l
-    text = Connection('vagrant@192.168.131.15').run('sudo yum install --downloadonly --downloaddir=/var/repo' + install_packages)
+    text = Connection('vagrant@192.168.131.152').run('sudo yum install --downloadonly --downloaddir=/var/repo' + install_packages)
     logging.debug(text)
     result = {'command_return': 'Work!'}
     return result
-
